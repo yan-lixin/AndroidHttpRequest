@@ -9,7 +9,7 @@ import java.net.URL
  * Copyright (c), 2018-2019
  * @author: lixin
  * Date: 2019/3/21
- * Description:
+ * Description: 网络请求
  */
 class JsonHttpRequest: IHttpRequest {
 

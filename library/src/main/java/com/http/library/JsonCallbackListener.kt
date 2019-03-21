@@ -11,7 +11,7 @@ import java.io.InputStreamReader
  * Copyright (c), 2018-2019
  * @author: lixin
  * Date: 2019/3/21
- * Description:
+ * Description: 主线程回调
  */
 class JsonCallbackListener<M>(private var responseClass: Class<M>, private var iJsonDataListener: IJsonDataListener<M>): CallbackListener {
 
@@ -26,7 +26,9 @@ class JsonCallbackListener<M>(private var responseClass: Class<M>, private var i
     }
 
     override fun onFailure() {
-
+        handler.post {
+            iJsonDataListener.onFailure()
+        }
     }
 
     private fun getContent(inputStream: InputStream): String? {

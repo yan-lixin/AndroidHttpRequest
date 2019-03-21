@@ -82,6 +82,9 @@ class ThreadPoolManager private constructor(){
         }
     }
 
+    /**
+     * 添加延迟任务到延迟队列
+     */
     fun addDelayTask(httpTask: HttpTask?) {
         if (httpTask != null) {
             httpTask.delayTime = 3000

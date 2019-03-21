@@ -8,15 +8,17 @@ import java.util.concurrent.TimeUnit
  * Copyright (c), 2018-2019
  * @author: lixin
  * Date: 2019/3/21
- * Description:
+ * Description: 异步请求任务
  */
-class HttpTask(requestData: Map<String, String>?, url: String, httpRequest: IHttpRequest, callbackListener: CallbackListener) : Runnable, Delayed{
+class HttpTask(requestData: Map<String, String>?, url: String, private var httpRequest: IHttpRequest, callbackListener: CallbackListener) : Runnable, Delayed{
 
-    private var mIHttpRequest: IHttpRequest? = httpRequest
+    //超时时间
     var delayTime: Long = 0
         set(delayTime) {
             field = System.currentTimeMillis() + delayTime
         }
+
+    //重试次数
     var retryCount: Int = 0
 
     init {
@@ -28,7 +30,7 @@ class HttpTask(requestData: Map<String, String>?, url: String, httpRequest: IHtt
 
     override fun run() {
         try {
-            mIHttpRequest?.execute()
+            httpRequest.execute()
         } catch (e: Exception) {
             ThreadPoolManager.getInstance().addDelayTask(this)
         }
